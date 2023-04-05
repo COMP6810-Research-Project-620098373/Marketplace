@@ -1,0 +1,27 @@
+.account-page--account-info-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+#account-page--qr-code-container{
+    width: 200px;
+    height: 200px;
+}
+
+.account-page--wallet-balance-container{
+    font-size: 18px;
+}
+
+.account-page--copy-address-button-container{
+    display: flex;
+    font-size: 20px;
+    color: var(--ion-color-primary);
+    padding: 20px;
+}
+
+.account-page--copy-address-button{
+    flex: 1;
+}

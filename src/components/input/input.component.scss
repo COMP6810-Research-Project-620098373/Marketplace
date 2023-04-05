@@ -1,0 +1,33 @@
+.app-input {
+    --ion-color-success: var(--ion-color-primary);
+}
+
+.app-input--error {
+    --ion-color-success: var(--ion-color-danger);
+}
+
+.app-input--error-container{
+    position: relative;
+}
+
+.app-input--error-container span {
+    position: absolute;
+    color: var(--ion-color-danger);
+    top: 0px;
+    font-size: 12px;
+}
+
+ion-item{
+    --padding-start: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

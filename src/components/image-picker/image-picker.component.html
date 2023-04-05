@@ -1,0 +1,25 @@
+<div *ngIf="images.length == 0" (click)="readonly ? toggleImageViewer() : openFilePicker()">
+  <div class="main-image-placeholder">
+    <ion-icon name="images-outline"></ion-icon>
+    <div class="main-image-row">
+      <span *ngIf="!readonly">Add Image</span>
+      <span *ngIf="readonly">No images to show</span>
+    </div>
+  </div>
+</div>
+
+<section *ngIf="images.length > 0" class="animated-background">
+
+  <div class="image-container fade-in" id="mainImage"
+    [ngStyle]="{'background-image': images[0] != null && 'url('+images[0]+')' || '', 'background-color': images[0] != null && 'black' || 'lightgray', 'display': this.thumbnailLoaded[0] || !readonly ? '' : 'none'}"
+    (click)="images[0] == null && !readonly ? openFilePicker() : !readonly && removeImage(0)">
+  </div>
+
+  <div class="image-container fade-in" *ngFor="let imageIndex of [1,2,3,4,5];"
+    [ngStyle]="{'background-image': images[imageIndex] != null && 'url('+images[imageIndex]+')' || '', 'background-color': images[imageIndex] != null && 'black' || 'lightgray', 'display': this.thumbnailLoaded[imageIndex] || !readonly ? '' : 'none'}"
+    (click)="images[imageIndex] == null && !readonly ? openFilePicker() : !readonly && removeImage(imageIndex)">
+  </div>
+
+</section>
+
+<input id="imageInput" type="file" accept="image/png, image/jpeg" (change)="getBaseUrl($event)">

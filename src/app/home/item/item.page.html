@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="item !== undefined && item !== null">{{ item === null ? "(404) Item not found" : "Item Details" }}</ion-title>
+    <ion-buttons slot="end" *ngIf="item !== undefined && item !== null">
+      <div id="item-page--share-icon-container">
+        <ion-icon name="share-social-outline" id="open-modal" (click)="displaySharableQrCode()"></ion-icon>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="item === undefined">
+  <div id="item-page--loading-spinner-container">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="item === null">
+  <div id="item-page--item-not-found-container">
+    <div>
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </div>
+    <div>
+      <span>The item specified was not found</span>
+    </div>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="item !== undefined && item !== null">
+  <div class="item-page--main-container">
+    <div id="item-page--title-container">
+      <span>{{ item.title }}</span>
+    </div>
+    <div id="item-page--image-container">
+      <app-image-picker [images]="item.images" [readonly]="true"></app-image-picker>
+    </div>
+    <div id="item-page--item-cost-container">
+      {{ item.cost.toFixed(2) }}
+    </div>
+    <div id="item-page--item-description-container">
+      {{ item.description }}
+    </div>
+    
+  </div>
+
+  
+  <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.7">
+    <ng-template>
+      <!-- <div id="item-page--share-qr-code">
+        <canvas id="item-page--qr-code-container"></canvas>
+      </div> -->
+      <div id="item-page--share-sheet-modal">
+        <div id="item-page--share-qr-code">
+          <canvas id="item-page--qr-code-container"></canvas>
+        </div>
+        <div id="item-page--share-sheet-modal-text">
+          <div>
+            <span>Tap the IPFS link below to copy</span>
+          </div>
+          <div id="item-page--share-sheet-modal-link">
+            <div id="item-page--link-container">
+              <span (click)="copySharableItemLink()">{{ generateSharableLink() }}</span>
+            </div>
+            <div>
+              <ion-icon name="copy-outline"></ion-icon>
+            </div>   
+          </div>       
+        </div>      
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<ion-footer *ngIf="item !== undefined && item !== null">
+  dddd
+</ion-footer>

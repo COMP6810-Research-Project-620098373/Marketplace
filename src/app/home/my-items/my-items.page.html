@@ -1,0 +1,72 @@
+<ion-content *ngIf="items === undefined">
+  <div id="my-items-page--loading-spinner-container">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="items === null">
+  <div>
+    <span>Error while fetching items</span>
+  </div>
+  <div>
+    <span>Tap to Retry</span>
+  </div>
+</ion-content>
+
+<ion-content class="my-items-page--container" *ngIf="items !== undefined && items !== null">
+  <ion-list>
+
+    <div *ngFor="let item of items; let index" class="my-items--list-item ion-activatable ripple-parent rectangle" (click)="viewItem(item)">
+      <ion-avatar slot="start">
+        <!-- <img [src]="'https://picsum.photos/80/80?random=' + 1" alt="avatar" /> -->
+        <img [src]="item.images[0]" alt="avatar" />
+      </ion-avatar>
+      <div class="my-items--list-item-text">
+        <div class="my-items--list-item-title">
+          <span>{{item.title}}</span>
+        </div>
+        <div class="my-items--list-item-status-text">
+          <span class="my-items--list-item-status-text-publishing" *ngIf="item.ethereumTransactionHash === null && isPubliclyVisibleItem(item)">publishing..</span>
+          <span class="my-items--list-item-status-text-published" *ngIf="item.ethereumTransactionHash !== null && isPubliclyVisibleItem(item)">published</span>
+          <span class="my-items--list-item-status-text-private" *ngIf="item.ethereumTransactionHash === null && !isPubliclyVisibleItem(item)">private</span>
+        </div>
+        <div class="my-items--list-id-container">
+          {{item.ipfsHash}}
+          <!-- <span class="browse--list-item-status-text-publishing" *ngIf="!item.isPublished">publishing..</span>
+          <span class="browse--list-item-status-text-published" *ngIf="item.isPublished">published</span> -->
+        </div>        
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+
+    <!-- <div class="my-items--list-item">
+      <ion-avatar slot="start">
+        <img [src]="'https://picsum.photos/80/80?random=' + 1" alt="avatar" />
+      </ion-avatar>
+      <div class="my-items--list-item-text">
+        <div class="my-items--list-item-title">
+          <span>My Item</span>
+        </div>
+        <div class="my-items--list-item-status-text">
+          <span class="my-items--list-item-status-text-publishing">publishing..</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-item *ngFor="let item of items; let index">
+      <ion-avatar slot="start">
+        <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+      </ion-avatar>
+      <ion-label>{{ item }}</ion-label>
+    </ion-item> -->
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab class="my-items-page--add-button" (click)="goToAddItemPage()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

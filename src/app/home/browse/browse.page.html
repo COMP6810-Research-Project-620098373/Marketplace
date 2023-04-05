@@ -1,0 +1,59 @@
+<ion-content>
+
+  <ion-content *ngIf="items === undefined">
+    <div id="browse-page--loading-spinner-container">
+      <ion-spinner name="dots"></ion-spinner>
+    </div>
+  </ion-content>
+
+  <ion-content *ngIf="items === null">
+    <div>
+      <span>Error while fetching items</span>
+    </div>
+  </ion-content>
+
+  <ion-content [fullscreen]="true" *ngIf="items !== undefined && items !== null">
+    <ion-refresher slot="fixed" (ionRefresh)="refresh()">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+      <!-- <ion-item *ngFor="let item of items; let index">
+            <ion-avatar slot="start">
+              <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+            </ion-avatar>
+            <ion-label>{{ item }}</ion-label>
+          </ion-item> -->
+      <div *ngFor="let item of items; let index" class="browse--list-item ion-activatable ripple-parent rectangle"
+        (click)="viewItem(item)">
+        <ion-avatar slot="start">
+          <!-- <img [src]="'https://picsum.photos/80/80?random=' + 1" alt="avatar" /> -->
+          <img [src]="item.images[0]" alt="avatar" />
+        </ion-avatar>
+        <div class="browse--list-item-text">
+          <div class="browse--list-item-title">
+            <span>{{item.title}}</span>
+          </div>
+          <div class="browse--list-price-container">
+            ${{item.cost.toFixed(2)}}
+          </div>
+          <div class="browse--list-id-container">
+            {{item.ipfsHash}}
+            <!-- <span class="browse--list-item-status-text-publishing" *ngIf="!item.isPublished">publishing..</span>
+                <span class="browse--list-item-status-text-published" *ngIf="item.isPublished">published</span> -->
+          </div>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+
+  <ion-fab class="browse--scan-button">
+    <ion-fab-button>
+      <ion-icon name="scan-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

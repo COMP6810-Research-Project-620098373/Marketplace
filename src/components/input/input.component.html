@@ -1,0 +1,7 @@
+<ion-item [ngClass]="errorMessage.length === 0 ? 'app-input' : 'app-input--error'" class="app-input">
+  <ion-label position="floating" [color]="errorMessage.length === 0 ? '' : 'danger'">{{label}}</ion-label>
+  <ion-input [type]="type" [autofocus]="autofocus" [name]="fieldName" [disabled]="disabled" [color]="errorMessage.length === 0 ? '' : 'danger'" [(ngModel)]="value" (keyup)="change.emit(value);" [maxlength]="maxLength" [ngStyle]="textCase !== null && {textTransform: textCase} || {}"></ion-input>
+</ion-item>
+<div class="app-input--error-container">
+  <span>{{errorMessage}}</span>
+</div>

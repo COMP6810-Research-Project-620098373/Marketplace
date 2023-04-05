@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar *ngIf="!searchOn">
+    <ion-title>
+      Marketplace
+    </ion-title>
+    <ion-buttons slot="end">
+      <div class="home-page--toolbar-buttons">
+        <ion-icon class="home-page--header-icon" name="search-outline" (click)="toggleSearch()"></ion-icon>
+        <ion-icon class="home-page--header-icon" name="cart-outline"></ion-icon>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+  <div *ngIf="searchOn" class="home-page--search-bar-container">
+    <ion-searchbar id="searchBar" (ionChange)="search($event)" debounce="500"></ion-searchbar>
+    <ion-icon name="close-circle-outline" (click)="searchOn = false ; clearSearch()"></ion-icon>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-router-outlet [animated]="false"></ion-router-outlet>
+  <ion-modal #modal trigger="dob-modal" [initialBreakpoint]="0.45" [isOpen]="isDobModalOpen" canDismiss="false" *ngIf="isDobModalOpen">
+    <ng-template>
+      <div id="home-page--dob-modal-contents-container">
+        <div id="home-page--dob-modal-title">
+          <span>Before continuing please provide your Month of Birth</span>
+        </div>
+        <ion-datetime #homePageDobSelector id="home-page--dob-selector" presentation="month-year" [max]="getMaxModalYear()"></ion-datetime>
+        <ion-button expand="full" (click)="confirmDateOfBirth()">DONE</ion-button>
+      </div>
+      
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<!-- <ion-content [fullscreen]="true" >
+    <ion-list>
+      <ion-item *ngFor="let item of items; let index">
+        <ion-avatar slot="start">
+          <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+        </ion-avatar>
+        <ion-label>{{ item }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>-->
+
+<ion-footer>
+  <div [ngClass]="{'home-page--footer-item': true, 'home-page--selected-footer-item': isBrowseTab()}" (click)="goToBrowse()">
+    <div>
+      <ion-icon name="home-outline"></ion-icon>
+    </div>
+    <div>
+      <span>Browse</span>
+    </div>
+  </div>
+  <div [ngClass]="{'home-page--footer-item': true, 'home-page--selected-footer-item': isMyItemsTab()}" (click)="goToMyitems()">
+    <div>
+      <ion-icon name="pricetags-outline"></ion-icon>
+    </div>
+    <div>
+      <span>My Items</span>
+    </div>
+  </div>
+  <div [ngClass]="{'home-page--footer-item': true, 'home-page--selected-footer-item': isAccountTab()}" (click)="goToAccount()">
+    <div>
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
+    <div>
+      <span>Account</span>
+    </div>
+  </div>
+</ion-footer> 

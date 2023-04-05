@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="add-item--image-picker">
+    <app-image-picker (update)="updateImages($event)"></app-image-picker>
+  </div>
+
+  <form (ngSubmit)="addItemForm.submit()" class="add-item--form">
+    <div>
+      <ion-select placeholder="Select Category" (ionChange)="handleCategoryFieldChange($event)">
+        <ion-select-option [value]="itemCategory" *ngFor="let itemCategory of itemCategories">{{itemCategory}}</ion-select-option>
+      </ion-select>
+      <div class="add-item--form-field-error-message">
+        {{addItemForm.errors.category}}
+      </div>      
+    </div>
+
+    <div>
+      <ion-select placeholder="Select Visibility" (ionChange)="handleVisibilityFieldChange($event)">
+        <ion-select-option value="private">Private</ion-select-option>
+        <ion-select-option value="public">Public</ion-select-option>
+      </ion-select>
+      <div class="add-item--form-field-error-message">
+        {{addItemForm.errors.visibility}}
+      </div>
+    </div>
+
+    <app-input
+      label="Title"
+      [errorMessage]="addItemForm.errors.title ?? ''"
+      (change)="typeof($event) === 'string' && addItemForm.values.title = $event ; addItemForm.updateErrors(true)"
+      [disabled]="addItemForm.isSubmitting === true"
+      type="text"
+    ></app-input>
+
+    <app-input
+      label="Cost"
+      [errorMessage]="addItemForm.errors.cost ?? ''"
+      (change)="typeof($event) === 'string' && addItemForm.values.cost = $event ; addItemForm.updateErrors(true)"
+      [disabled]="addItemForm.isSubmitting === true"
+      type="number"
+    ></app-input>
+
+    <app-input
+      label="Contact"
+      [errorMessage]="addItemForm.errors.contact ?? ''"
+      (change)="typeof($event) === 'string' && addItemForm.values.contact = $event ; addItemForm.updateErrors(true)"
+      [disabled]="addItemForm.isSubmitting === true"
+      type="text"
+    ></app-input>
+
+    <div id="add-item--transaction-cost-container" *ngIf="addItemForm.values.visibility === 'public'">
+      <div>
+        This transaction will cost:
+      </div>
+      <div id="add-item--transaction-cost">
+        0 eth
+      </div>
+    </div>
+
+    <div class="add-item--submit-button-container">
+      <ion-button type="submit" expand="full">Submit</ion-button>
+    </div>
+  </form>
+
+</ion-content>
