@@ -68,6 +68,11 @@ export class BrowsePage implements OnInit {
 
   private async search(searchFilter: string){
     this.items = undefined
+    if(localStorage.getItem("monthOfBirth") === null) {
+      await new Promise(resolve => setTimeout(resolve, 3000))
+      this.search(searchFilter)
+      return
+    }
     // this.loadItems(searchQuery)
     try{
       const searchQuery: string = searchFilter

@@ -26,4 +26,12 @@ export class ItemService {
       image: imageUrlOrBase64
     })
   }
+
+  classifyItemText$(item: Item): Observable<{
+      label: string;
+  }>{
+    return requestBuilder.classifyTextRequest(this.httpClient, {
+      text: item.title + item.description
+    })
+  }
 }

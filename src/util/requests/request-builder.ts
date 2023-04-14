@@ -1,6 +1,7 @@
 import { addItemRequest } from "./endpoints/add-item-request";
 import { browseItemsRequest } from "./endpoints/browse-items-request";
 import { classifyImageRequest } from "./endpoints/classify-image-request";
+import { classifyTextRequest } from "./endpoints/classify-text-request";
 import { fetchItemRequest } from "./endpoints/fetch-item-request";
 import { myItemsRequest } from "./endpoints/my-items-request";
 import { transactionCostRequest } from "./endpoints/transaction-cost-request";
@@ -14,4 +15,5 @@ export const requestBuilder = {
     getWalletRequest,
     transactionCostRequest,
     classifyImageRequest,
+    classifyTextRequest,
 }

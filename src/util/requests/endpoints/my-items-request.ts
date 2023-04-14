@@ -8,5 +8,6 @@ import { fetchAPI } from "../../fetch-api"
 export const myItemsRequest = (http: HttpClient, queryParams: FetchItemsQueryParams): Observable<typeof myItemsResponse[200]> => {
     return fetchAPI("myItems", http, "get", {
         queryParams,
+        isUsingMock: false,
     })
 }

@@ -86,13 +86,43 @@ export class ItemPage implements OnInit {
           )
         }
 
-        const textClassificationPromises = new Array<Promise<null>>
+        const textClassificationPromises: Array<Promise<null>> = [
+          new Promise((resolve, reject) => {
+            try {
+              const classificationRequest = this.itemService.classifyItemText$(item).subscribe(async itemLabel => {
+                classificationRequest.unsubscribe()
+                if (itemLabel.label === null) {
+                  reject("label not found")
+                  return
+                }
+                itemLabel.label = itemLabel.label.split("-").join(" ")
+                if (ItemClassifications[itemLabel.label.toLowerCase()] === undefined) {
+                  reject("item is not registered")
+                  return
+                }
+                if (ItemClassifications[itemLabel.label.toLowerCase()]?.ageThreshold === null) {
+                  reject("Item is not allowed on the platform")
+                  return
+                }
+                if (AgeRanges[ItemClassifications[itemLabel.label.toLowerCase()]?.ageThreshold as keyof typeof AgeRanges].max >= userAge) {
+                  reject("User is too young to view item")
+                  return
+                }
+                resolve(null)
+              })
+            }
+            catch(err){
+              reject(err)
+            }
+          })
+        ]
 
         try{
           await Promise.all(imageClassificationPromises.concat(textClassificationPromises))
           this.item = item
         }
         catch(err){
+          console.log(err)
           this.item = null
         }
 
