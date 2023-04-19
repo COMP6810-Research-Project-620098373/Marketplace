@@ -10,7 +10,7 @@ export const environment = {
   useMockAPI: true,
   // modelPath: "assets/model/model.json",
   backend: {
-    origin: "http://localhost:3000/api",
+    origin: "https://localhost:3000/api",
     endpoints: {
       addItem: (options?: {}) => {
         return `/item`

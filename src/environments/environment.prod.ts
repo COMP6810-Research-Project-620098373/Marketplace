@@ -5,7 +5,7 @@ export const environment = {
   // ipfsAPI: "http://localhost:5001/api/v0",
   useMockAPI: false,
   backend: {
-    origin: "http://localhost:3000/api",
+    origin: `${window.location.origin}/api`,
     endpoints: {
       addItem: (options?: {}) => {
         return `/item`
@@ -17,7 +17,7 @@ export const environment = {
         return `/my-items?mode=${options?.queryParams.mode ?? "public"}&filter=${options?.queryParams.filter}&offset=${options?.queryParams.offset}`
       },
       browseItems: (options?: {queryParams: FetchItemsQueryParams}) => {
-        return `/browse-items?mode=${options?.queryParams.mode ?? "public"}&filter=${options?.queryParams.filter}&offset=${options?.queryParams.offset}`
+        return `/browse-items?mode=${options?.queryParams.mode ?? "public"}&filter=${options?.queryParams.filter}&offset=${options?.queryParams.offset}&userAge=${options?.queryParams.userAge}`
       },
       wallet: (options?: {}) => {
         return `/wallet`
